@@ -1,88 +1,107 @@
-import React, { useState } from 'react'
-import Layout from '../../components/Layout/Layout'
-import { useNavigate } from 'react-router-dom'
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
-const Cart = ({cart,handleDec,handleInc,handleRemove,TotalCost,Applycode,promocode,setPromocode,applied}) => {
-  const Navigate=useNavigate()
+const Cart = ({ cart, handleDec, handleInc, handleRemove, TotalCost, Applycode, promocode, setPromocode, applied }) => {
+  const navigate = useNavigate();
+
   return (
-    <div class="bg-gray-100">
-  <div class="container mx-auto mt-10">
-    <div class="flex shadow-md my-10">
-      <div class="w-3/4 bg-white px-10 py-10">
-        <div class="flex justify-between border-b pb-8">
-          <h1 class="font-semibold text-2xl">Shopping Cart</h1>
-          <h2 class="font-semibold text-2xl uppercase">{cart.length} Items</h2>
-        </div>
-        <div class="flex mt-10 mb-5">
-          <h3 class="font-semibold text-gray-600 text-xs uppercase w-2/5">Product Details</h3>
-          <h3 class="font-semibold text-center text-gray-600 text-xs uppercase w-1/5 ">Quantity</h3>
-          <h3 class="font-semibold text-center text-gray-600 text-xs uppercase w-1/5 ">Price</h3>
-          <h3 class="font-semibold text-center text-gray-600 text-xs uppercase w-1/5 ">Total</h3>
-        </div>
+    <div className="bg-gray-100">
+      <div className="container mx-auto px-4 mt-10">
+        <div className="flex flex-col lg:flex-row shadow-md my-10 gap-6">
 
-        {/* Cart start */}
-        {cart.map((cartItem)=>(
-        <div class="flex items-center hover:bg-gray-100 -mx-8 px-6 py-5" key={cartItem.id}>
-          <div class="flex w-2/5"> 
-            <div class="w-20">
-              <img class="h-24" src={cartItem.thumbnail} alt=""/>
+          {/* Cart Section */}
+          <div className="lg:w-3/4 bg-white px-6 py-8 rounded-md">
+            <div className="flex flex-col sm:flex-row justify-between border-b pb-6">
+              <h1 className="font-semibold text-xl sm:text-2xl">Shopping Cart</h1>
+              <h2 className="font-semibold text-xl sm:text-2xl">{cart.length} Items</h2>
             </div>
-            <div class="flex flex-col justify-between ml-4 flex-grow">
-              <span class="font-bold text-sm">{cartItem.title}</span>
-              <span class="text-gray-500 text-xs uppercase">{cartItem.category}</span>
-              <button class="font-semibold text-red-500 text-xs" onClick={()=>handleRemove(cartItem.id)}>Remove</button>
+
+            <div className="hidden sm:flex mt-8 mb-5 font-semibold text-gray-600 text-xs uppercase">
+              <div className="w-2/5">Product Details</div>
+              <div className="w-1/5 text-center">Quantity</div>
+              <div className="w-1/5 text-center">Price</div>
+              <div className="w-1/5 text-center">Total</div>
+            </div>
+
+            {/* Cart Items */}
+            {cart.map((item) => (
+              <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-0 hover:bg-gray-100 border-t py-4" key={item.id}>
+                <div className="flex w-full sm:w-2/5">
+                  <img className="h-24 w-20 object-cover rounded-md" src={item.thumbnail} alt={item.title} />
+                  <div className="ml-4 flex flex-col justify-between">
+                    <span className="font-bold text-sm">{item.title}</span>
+                    <span className="text-gray-500 text-xs uppercase">{item.category}</span>
+                    <button onClick={() => handleRemove(item.id)} className="text-red-500 text-xs mt-1">Remove</button>
+                  </div>
+                </div>
+
+                <div className="flex justify-center w-full sm:w-1/5">
+                  <button onClick={() => handleDec(item.id)} className="border px-2">-</button>
+                  <span className="px-3">{item.quantity}</span>
+                  <button onClick={() => handleInc(item.id)} className="border px-2">+</button>
+                </div>
+
+                <div className="w-full sm:w-1/5 text-center font-semibold text-sm">{Math.round(item.price * 83)} Rs.</div>
+                <div className="w-full sm:w-1/5 text-center font-semibold text-sm">{Math.round(item.price * 83 * item.quantity)} Rs.</div>
+              </div>
+            ))}
+
+            <p onClick={() => navigate('/')} className="mt-6 text-blue-600 font-semibold text-sm flex items-center cursor-pointer">
+              <svg className="w-4 h-4 mr-2 fill-current" viewBox="0 0 448 512"><path d="M134.059 296H436c..."/></svg>
+              Continue Shopping
+            </p>
+          </div>
+
+          {/* Summary Section */}
+          <div className="lg:w-1/4 w-full bg-white px-6 py-8 rounded-md">
+            <h2 className="font-semibold text-xl border-b pb-4">Order Summary</h2>
+            <div className="flex justify-between my-6 text-sm font-medium">
+              <span>{cart.length} Items</span>
+              <span>{TotalCost()} Rs.</span>
+            </div>
+
+            <div className="mb-4">
+              <label className="text-sm font-medium block mb-2">Shipping</label>
+              <select className="p-2 border rounded w-full text-sm text-gray-600">
+                <option>Standard shipping - 10 Rs.</option>
+              </select>
+            </div>
+
+            <div className="mb-6">
+              <label htmlFor="promo" className="text-sm font-medium block mb-2">Promo Code</label>
+              <input
+                id="promo"
+                type="text"
+                placeholder="Enter your code"
+                className="p-2 border rounded w-full text-sm"
+                value={promocode}
+                onChange={(e) => setPromocode(e.target.value)}
+              />
+              {promocode && promocode !== 'DRV30' ? (
+                <span className="text-sm text-gray-600">Use your code here</span>
+              ) : (
+                <span className="text-sm text-green-500">{applied}</span>
+              )}
+              <button onClick={Applycode} className="mt-2 bg-red-500 hover:bg-red-600 text-white w-full py-2 text-sm uppercase rounded">
+                Apply
+              </button>
+            </div>
+
+            <div className="border-t pt-4">
+              <div className="flex justify-between font-semibold text-sm mb-4">
+                <span>Total cost</span>
+                <span>{TotalCost() + 10} Rs.</span>
+              </div>
+              <button className="bg-blue-600 hover:bg-blue-700 w-full text-white py-3 text-sm uppercase rounded">
+                Checkout
+              </button>
             </div>
           </div>
-          <div className='flex justify-center w-1/5'>
-          <button className='border px-2 py-1' onClick={()=>handleDec(cartItem.id)}>-</button>
-          <button className='px-2'>{cartItem.quantity}</button>
-          <button className='border px-2 py-1' onClick={()=>handleInc(cartItem.id)}>+</button>
 
-          </div>
-          <span class="text-center w-1/5 font-semibold text-sm">{Math.round(cartItem.price*83)} Rs.</span>
-          <span class="text-center w-1/5 font-semibold text-sm">{Math.round(cartItem.price*83*cartItem.quantity)} Rs.</span>
-        </div>
-        ))}
-        {/* Cart end */}
-
-        <p class="flex font-semibold text-blue-600 text-sm mt-10 cursor-pointer" onClick={()=>Navigate("/")}>
-      
-          <svg class="fill-current mr-2 text-blue-600 w-4" viewBox="0 0 448 512"><path d="M134.059 296H436c6.627 0 12-5.373 12-12v-56c0-6.627-5.373-12-12-12H134.059v-46.059c0-21.382-25.851-32.09-40.971-16.971L7.029 239.029c-9.373 9.373-9.373 24.569 0 33.941l86.059 86.059c15.119 15.119 40.971 4.411 40.971-16.971V296z"/></svg>
-          Continue Shopping
-        </p>
-      </div>
-
-      <div id="summary" class="w-1/4 px-8 py-10">
-        <h1 class="font-semibold text-2xl border-b pb-8">Order Summary</h1>
-        <div class="flex justify-between mt-10 mb-5">
-          <span class="font-semibold text-sm uppercase">{cart.length} Items</span>
-          <span class="font-semibold text-sm">{TotalCost()} Rs.</span>
-        </div>
-        <div>
-          <label class="font-medium inline-block mb-3 text-sm uppercase">Shipping</label>
-          <select class="block p-2 text-gray-600 w-full text-sm">
-            <option>Standard shipping - 10 Rs.</option>
-          </select>
-        </div>
-        <div class="py-10">
-          <label for="promo" class="font-semibold inline-block mb-3 text-sm uppercase">Promo Code</label>
-          <input type="text" id="promo" placeholder="Enter your code" class="p-2 text-sm w-full" value={promocode} onChange={(e)=>setPromocode(e.target.value)}/>
-          {promocode && promocode !== 'DRV30' ? <span className='text-sm text-gray-600'>Use your code here</span> : <span className='text-sm text-green-500 uppercase py-20'>{applied}</span>}
-        </div>
-        <button class="bg-red-500 hover:bg-red-600 px-5 py-2 text-sm text-white uppercase" onClick={Applycode}>Apply</button>
-        <div class="border-t mt-8">
-          <div class="flex font-semibold justify-between py-6 text-sm uppercase">
-            <span>Total cost</span>
-            <span>{TotalCost()+10} Rs.</span>
-          </div>
-          <button class="font-semibold  bg-blue-600 hover:bg-blue-700 py-3 text-sm text-white uppercase w-full">Checkout</button>
         </div>
       </div>
-
     </div>
-  </div>
-    </div>
-  )
-}
+  );
+};
 
-export default Cart
+export default Cart;

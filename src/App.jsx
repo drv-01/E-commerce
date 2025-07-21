@@ -6,7 +6,7 @@ import Cart from "./Pages/Cart/Cart";
 import Fashion from "./Pages/Fashion/Fashion";
 import Electronics from "./Pages/Electronics/Electronics";
 import AllProducts from "./Pages/AllProducts/AllProducts";
-import Login from "./Pages/Login";
+import Login from "./Pages/Login/Login";
 
 function App() {
   const [cart, setCart] = useState([]);
