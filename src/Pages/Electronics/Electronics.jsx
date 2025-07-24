@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import Layout from '../../components/Layout/Layout';
 import axios from 'axios';
 
-const ElectronicsSection = ({ AddToCart }) => {
+const ElectronicsSection = ({ AddToCart, searchedItem }) => {
   const [electronics, setElectronics] = useState([]);
-  const [loading, setLoading] = useState(true);       // 👈 Add loading state
-  const [error, setError] = useState(null);           // 👈 Add error state
+  const [loading, setLoading] = useState(true);       
+  const [error, setError] = useState(null);           
 
   useEffect(() => {
     const fetchElectronics = async () => {
@@ -25,18 +25,25 @@ const ElectronicsSection = ({ AddToCart }) => {
     fetchElectronics();
   }, []);
 
+  // 🔍 Filtered electronics by search input
+  const filteredElectronics = electronics.filter(item =>
+    item.title.toLowerCase().includes(searchedItem.toLowerCase())
+  );
+
   return (
     <div className="bg-gray-50 py-12 px-4 sm:px-6 lg:px-8 min-h-screen">
       <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">Top Electronics</h2>
 
-      {/* Loading & Error UI */}
       {loading && <p className="text-center text-gray-600">Loading products...</p>}
       {error && <p className="text-center text-red-500">{error}</p>}
 
-      {/* Product Grid */}
-      {!loading && !error && (
+      {!loading && !error && filteredElectronics.length === 0 && (
+        <p className="text-center text-gray-500">No electronics found.</p>
+      )}
+
+      {!loading && !error && filteredElectronics.length > 0 && (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {electronics.map((item) => (
+          {filteredElectronics.map((item) => (
             <div
               key={item.id}
               className="bg-white border rounded-2xl shadow hover:shadow-xl transition duration-300 flex flex-col"

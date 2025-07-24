@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-const FashionSection = ({ AddToCart }) => {
+const FashionSection = ({ AddToCart, searchedItem }) => {
   const [fashionItems, setFashionItems] = useState([]);
-  const [loading, setLoading] = useState(true); // ⏳ loading state
-  const [error, setError] = useState(null);     // ❌ error state
+  const [loading, setLoading] = useState(true); 
+  const [error, setError] = useState(null);     
 
   useEffect(() => {
     const fetchFashion = async () => {
@@ -29,16 +29,25 @@ const FashionSection = ({ AddToCart }) => {
     fetchFashion();
   }, []);
 
+  // 🔍 Filtered results
+  const filteredItems = fashionItems.filter(item =>
+    item.title.toLowerCase().includes(searchedItem.toLowerCase())
+  );
+
   return (
     <div className="bg-gray-100 py-12 px-4 sm:px-6 lg:px-8 min-h-screen">
       <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">Latest in Fashion</h2>
 
-      {loading && <p className="text-center text-gray-500">Loading fashion products...</p>}
+      {loading && <p className="text-center text-gray-500">Loading products...</p>}
       {error && <p className="text-center text-red-500">{error}</p>}
 
-      {!loading && !error && (
+      {!loading && !error && filteredItems.length === 0 && (
+        <p className="text-center text-gray-500">No matching fashion items found.</p>
+      )}
+
+      {!loading && !error && filteredItems.length > 0 && (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {fashionItems.map((item) => (
+          {filteredItems.map((item) => (
             <div
               key={item.id}
               className="bg-white rounded-2xl shadow-md hover:shadow-lg transition duration-300 flex flex-col"

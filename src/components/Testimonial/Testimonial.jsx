@@ -25,14 +25,14 @@ const testimonials = [
     name: 'Holden Caulfield',
     role: 'UI DEVELOPER',
     quote:
-      'Really happy with the customer support and delivery speed. The packaging was eco-friendly too!',
+      'Really happy with the customer support and delivery speed. The packaging was eco-friendly too! and I’ve had no issues with returns or payments.',
   },
   {
     image: 'src/assets/p-4.jpg',
     name: 'DUBA DUBA',
     role: 'ENTREPRENEUR',
     quote:
-      'Bazzarify stands out with secure payments and fast returns. I’m a repeat customer now.',
+      'Bazzarify stands out with secure payments and fast returns. I’m a repeat customer now and I’ve had no issues with returns or payments.',
   },
 ];
 
@@ -57,7 +57,7 @@ const Testimonial = () => {
       >
         {testimonials.map((item, idx) => (
           <SwiperSlide key={idx}>
-            <div className="bg-gray-100 rounded-xl p-6 mx-2 h-full flex flex-col shadow-md hover:shadow-xl transition duration-300">
+            <div className="bg-gray-100 rounded-xl p-6 mx-2 h-[100%] flex flex-col shadow-md hover:shadow-xl transition duration-300">
               <p className="text-gray-700 italic mb-6">&ldquo;{item.quote}&rdquo;</p>
 
               <div className="flex items-center mt-auto">

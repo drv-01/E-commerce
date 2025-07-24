@@ -6,8 +6,12 @@ import { IoMdSearch } from "react-icons/io";
 import { MdOutlineAccountCircle } from "react-icons/md";
 import { HiMenu, HiX } from "react-icons/hi";
 
-const Navbar = ({ cart }) => {
+const Navbar = ({ cart, searchedItem, setSearchedItem }) => {
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const handleSearchChange = (e) => {
+    setSearchedItem(e.target.value);
+  };
 
   return (
     <nav className="bg-black text-white shadow-md">
@@ -33,11 +37,13 @@ const Navbar = ({ cart }) => {
           <div className="absolute inset-y-0 left-0 pl-3 flex items-center">
             <IoMdSearch className="text-black w-5 h-5" />
           </div>
-          <input
+          {/* <input
             type="text"
             placeholder="Search Item..."
+            value={searchedItem}
+            onChange={handleSearchChange}
             className="w-full border rounded-full pl-10 pr-4 py-2 text-black bg-white focus:outline-none focus:ring-2 focus:ring-gray-300"
-          />
+          /> */}
         </div>
 
         {/* Desktop Menu */}
@@ -69,11 +75,13 @@ const Navbar = ({ cart }) => {
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center">
               <IoMdSearch className="text-black w-5 h-5" />
             </div>
-            <input
+            {/* <input
               type="text"
               placeholder="Search Item..."
+              value={searchedItem}
+              onChange={handleSearchChange}
               className="w-full border rounded-full pl-10 pr-4 py-2 text-black bg-white focus:outline-none focus:ring-2 focus:ring-gray-300"
-            />
+            /> */}
           </div>
           <Link to="/" className="block hover:text-gray-300">Home</Link>
           <Link to="/fashion" className="block hover:text-gray-300">Fashion</Link>
