@@ -7,29 +7,29 @@ import 'swiper/css/pagination';
 
 const testimonials = [
   {
-    image: 'src/assets/p-1.jpg',
-    name: 'Harry Chokker',
+    image: 'https://media.licdn.com/dms/image/v2/D4E03AQF5k_7vTEEbiw/profile-displayphoto-scale_400_400/B4EZfj4RF.HsAk-/0/1751874869200?e=1756339200&v=beta&t=4zx3LFgHqr5sxxoQF97JQgg8LTG6MxgrUehtNfd7VOc',
+    name: 'Lakshay Yadav',
     role: 'VOLLEYBALL PLAYER',
     quote:
       'Absolutely amazing service! Fast delivery and the quality is top-notch. I recommend Bazzarify to everyone.',
   },
   {
-    image: 'src/assets/p-2.jpg',
-    name: 'Alper Kamu',
+    image: 'https://media.licdn.com/dms/image/v2/D4E03AQFhy-D8R7Y7fw/profile-displayphoto-shrink_400_400/B4EZdkGIC_HYAs-/0/1749731022872?e=1756339200&v=beta&t=RgGQpLTLnw4bW5Fs7L6tcVxwboISJl3RwTi0W4v5vMM',
+    name: 'Mayank',
     role: 'DESIGNER',
     quote:
       'Their collection is superb. The products feel premium and I’ve had no issues with returns or payments.',
   },
   {
-    image: 'src/assets/p-3.jpg',
-    name: 'Holden Caulfield',
+    image: 'https://media.licdn.com/dms/image/v2/D5603AQGmy7wEqTBUVA/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1722570440825?e=1756339200&v=beta&t=lFGaxLlFxvXyr7FamvHfJHApT_PGw1dmL9foFtbBewE',
+    name: 'Arun',
     role: 'UI DEVELOPER',
     quote:
       'Really happy with the customer support and delivery speed. The packaging was eco-friendly too! and I’ve had no issues with returns or payments.',
   },
   {
-    image: 'src/assets/p-4.jpg',
-    name: 'DUBA DUBA',
+    image: 'https://media.licdn.com/dms/image/v2/D5603AQGIbZ8oaC5YjQ/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1723926607159?e=1756339200&v=beta&t=M65kQ8kCUwaftz3L3EqmrHRSfp1uHHMnvlJEW4O4eLA',
+    name: 'Drv',
     role: 'ENTREPRENEUR',
     quote:
       'Bazzarify stands out with secure payments and fast returns. I’m a repeat customer now and I’ve had no issues with returns or payments.',
